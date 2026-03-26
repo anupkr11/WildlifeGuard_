@@ -16,7 +16,7 @@ const ContactForm = () => {
     e.preventDefault();
 
     // If no API then store locally
-    const res = await fetch("https://wildlifeguard-backend.onrender.com/contactus", {
+    const res = await fetch("http://localhost:3000/contactus", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

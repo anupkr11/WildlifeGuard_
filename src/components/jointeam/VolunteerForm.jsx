@@ -18,7 +18,7 @@ const VolunteerForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("https://wildlifeguard-backend.onrender.com/jointeam", {
+    const res = await fetch("http://localhost:3000/jointeam", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
