@@ -12,22 +12,20 @@ const ContactForm = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // If no API then store locally
-    const queries = JSON.parse(localStorage.getItem("queries")) || [];
-    queries.push(form);
-    localStorage.setItem("queries", JSON.stringify(queries));
-
-    alert("Your query has been submitted successfully!");
-
-    setForm({
-      firstName: "",
-      lastName: "",
-      email: "",
-      message: "",
+    const res = await fetch("http://localhost:3000/contactus", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
     });
+    const result = await res.json();
+    alert(result.message);
+
   };
 
   return (

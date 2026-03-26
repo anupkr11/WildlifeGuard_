@@ -1,12 +1,25 @@
 import { useParams, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProgramCharts from "../components/program/ProgramCharts";
+import { useEffect } from "react";
+import { fetchPrograms } from "../redux/programSlice";
+import { useDispatch } from "react-redux";
+import { deleteProgram } from "../redux/programSlice";
+import { useNavigate } from "react-router-dom";
+
+
 
 const ProgramDetails = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(fetchPrograms());
+  }, [dispatch]);
   const { id } = useParams();
 
+ 
   const program = useSelector((state) =>
-    state.programs.data.find((p) => String(p.ID) === id)
+    state.programs.data.find((p) => String(p.ID) === id),
   );
 
   if (!program) {
@@ -16,6 +29,14 @@ const ProgramDetails = () => {
       </p>
     );
   }
+
+   const handleDelete = async (id, programName) => {
+    dispatch(deleteProgram(id));
+    //route to programs page after deletion using useNavigate
+    navigate("/programs");
+    alert(`${programName} has been successfully deleted`);
+  };
+
 
   return (
     <div className="bg-gray-50 min-h-screen py-16 text-xl">
@@ -86,6 +107,7 @@ const ProgramDetails = () => {
             Contact Program Team
           </Link>
         </div>
+        <button className= " mt-5 bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-lg font-semibold transition" onClick={()=>handleDelete(program.ID, program["Program Name"])}>Delete Program</button>
       </div>
     </div>
   );

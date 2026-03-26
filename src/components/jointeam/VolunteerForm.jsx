@@ -15,27 +15,18 @@ const VolunteerForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const existing =
-      JSON.parse(localStorage.getItem("volunteers")) || [];
-
-    localStorage.setItem(
-      "volunteers",
-      JSON.stringify([...existing, formData])
-    );
-
-    alert("Thank you for joining the initiative!");
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      country: "",
-      aadhaar: "",
-      interest: "",
+    const res = await fetch("http://localhost:3000/jointeam", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
     });
-    setIsIndian(false);
+    const result = await res.json();
+    alert(result.message);
   };
 
   return (
