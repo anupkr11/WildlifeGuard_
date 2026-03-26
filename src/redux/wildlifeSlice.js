@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchWildlife = createAsyncThunk(
   "wildlife/fetchWildlife",
   async () => {
-    const res = await fetch("http://localhost:3000/wildlife/");
+    const res = await fetch("https://wildlifeguard-backend.onrender.com/wildlife/");
     return await res.json();
   }
 );
