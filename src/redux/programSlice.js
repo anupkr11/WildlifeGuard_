@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchPrograms = createAsyncThunk(
   "programs/fetchPrograms",
   async () => {
-    const res = await fetch("http://localhost:3000/program");
+    const res = await fetch("https://wildlifeguard-backend.onrender.com/program");
     return res.json();
   }
 );
@@ -11,7 +11,7 @@ export const fetchPrograms = createAsyncThunk(
 export const deleteProgram = createAsyncThunk(
   "programs/deleteProgram",
   async (id) => {
-    await fetch(`http://localhost:3000/program/${id}`, {
+    await fetch(`https://wildlifeguard-backend.onrender.com/program/${id}`, {
       method: "DELETE",
     });
     return id;
